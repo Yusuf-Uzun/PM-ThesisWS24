@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Start the Taiga backend
+# Start taiga.io
 set -x
 
 # Check if platform flag is required
