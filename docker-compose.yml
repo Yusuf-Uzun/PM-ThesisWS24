@@ -1,19 +1,13 @@
-version: "3.5"
-
 x-environment:
   &default-back-environment
-  # These environment variables will be used by taiga-back and taiga-async.
-  # Database settings
   POSTGRES_DB: "taiga"
   POSTGRES_USER: "${POSTGRES_USER}"
   POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
   POSTGRES_HOST: "taiga-db"
-  # Taiga settings
   TAIGA_SECRET_KEY: "${SECRET_KEY}"
   TAIGA_SITES_SCHEME: "${TAIGA_SCHEME}"
   TAIGA_SITES_DOMAIN: "${TAIGA_DOMAIN}"
   TAIGA_SUBPATH: "${SUBPATH}"
-  # Email settings.
   EMAIL_BACKEND: "django.core.mail.backends.${EMAIL_BACKEND}.EmailBackend"
   DEFAULT_FROM_EMAIL: "${EMAIL_DEFAULT_FROM}"
   EMAIL_USE_TLS: "${EMAIL_USE_TLS}"
@@ -22,20 +16,15 @@ x-environment:
   EMAIL_PORT: "${EMAIL_PORT}"
   EMAIL_HOST_USER: "${EMAIL_HOST_USER}"
   EMAIL_HOST_PASSWORD: "${EMAIL_HOST_PASSWORD}"
-  # Rabbitmq settings
   RABBITMQ_USER: "${RABBITMQ_USER}"
   RABBITMQ_PASS: "${RABBITMQ_PASS}"
-  # Telemetry settings
   ENABLE_TELEMETRY: "${ENABLE_TELEMETRY}"
-  # ...your customizations go here
   PUBLIC_REGISTER_ENABLED: "True"
 
 x-volumes:
   &default-back-volumes
-  # These volumens will be used by taiga-back and taiga-async.
   - taiga-static-data:/taiga-back/static
   - taiga-media-data:/taiga-back/media
-  # - ./config.py:/taiga-back/settings/config.py
 
 services:
   taiga-db:
@@ -57,6 +46,7 @@ services:
 
   taiga-back:
     image: taigaio/taiga-back:latest
+    platform: linux/amd64
     environment: *default-back-environment
     volumes: *default-back-volumes
     networks:
@@ -71,6 +61,7 @@ services:
 
   taiga-async:
     image: taigaio/taiga-back:latest
+    platform: linux/amd64
     entrypoint: ["/taiga-back/docker/async_entrypoint.sh"]
     environment: *default-back-environment
     volumes: *default-back-volumes
@@ -99,20 +90,18 @@ services:
 
   taiga-front:
     image: taigaio/taiga-front:latest
+    platform: linux/amd64
     environment:
       TAIGA_URL: "${TAIGA_SCHEME}://${TAIGA_DOMAIN}"
       TAIGA_WEBSOCKETS_URL: "${WEBSOCKETS_SCHEME}://${TAIGA_DOMAIN}"
       TAIGA_SUBPATH: "${SUBPATH}"
       PUBLIC_REGISTER_ENABLED: "true"
-      # ...your customizations go here
     networks:
       - taiga
-    # volumes:
-    #   - ./conf.json:/usr/share/nginx/html/conf.json
-
 
   taiga-events:
     image: taigaio/taiga-events:latest
+    platform: linux/amd64
     environment:
       RABBITMQ_USER: "${RABBITMQ_USER}"
       RABBITMQ_PASS: "${RABBITMQ_PASS}"
@@ -138,6 +127,7 @@ services:
 
   taiga-protected:
     image: taigaio/taiga-protected:latest
+    platform: linux/amd64
     environment:
       MAX_AGE: "${ATTACHMENTS_MAX_AGE}"
       SECRET_KEY: "${SECRET_KEY}"
