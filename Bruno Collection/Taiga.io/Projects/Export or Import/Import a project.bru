@@ -1,0 +1,16 @@
+meta {
+  name: Import a project
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost:9000/api/v1/importer/{{project_name}}
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: multipart/form-data
+  Authorization: Bearer {{auth_token}}
+}

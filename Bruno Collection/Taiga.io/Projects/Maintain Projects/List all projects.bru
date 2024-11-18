@@ -1,0 +1,16 @@
+meta {
+  name: List all projects
+  type: http
+  seq: 1
+}
+
+get {
+  url: http://localhost:9000/api/v1/projects
+  body: none
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Authorization: Bearer {{auth_token}}
+}

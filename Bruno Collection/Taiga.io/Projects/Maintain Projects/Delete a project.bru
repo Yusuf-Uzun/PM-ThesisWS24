@@ -1,0 +1,16 @@
+meta {
+  name: Delete a project
+  type: http
+  seq: 3
+}
+
+delete {
+  url: http://localhost:9000/api/v1/projects/{{project_id}}
+  body: none
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Authorization: Bearer {{auth_token}}
+}
