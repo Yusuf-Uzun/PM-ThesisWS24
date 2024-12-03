@@ -1,5 +1,3 @@
-version: "3.5"
-
 x-environment:
   &default-back-environment
   POSTGRES_DB: "taiga"
@@ -7,7 +5,6 @@ x-environment:
   POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
   POSTGRES_HOST: "taiga-db"
   PUBLIC_REGISTER_ENABLED: "True"
-
 
   TAIGA_SECRET_KEY: "${SECRET_KEY}"
   TAIGA_SITES_SCHEME: "${TAIGA_SCHEME}"
@@ -35,6 +32,7 @@ x-volumes:
 services:
   taiga-manage:
     image: taigaio/taiga-back:latest
+    platform: linux/arm64
     environment: *default-back-environment
     depends_on:
       - taiga-db
@@ -42,3 +40,10 @@ services:
     volumes: *default-back-volumes
     networks:
       - taiga
+
+volumes:
+  taiga-static-data:
+  taiga-media-data:
+
+networks:
+  taiga:

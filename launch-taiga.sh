@@ -1,6 +1,20 @@
 #!/usr/bin/env bash
 
-# Start taiga.io
-set -x
+set -e
 
-exec docker compose -f docker-compose.yml up -d "$@"
+if [[ "$1" == "--platform" ]]; then
+    PLATFORM=$2
+    if [[ "$PLATFORM" != "amd" && "$PLATFORM" != "arm" ]]; then
+        echo "Error: Invalid platform specified. Use 'amd' or 'arm'."
+        exit 1
+    fi
+    shift 2
+else
+    echo "Usage: $0 --platform <amd|arm>"
+    exit 1
+fi
+
+COMPOSE_FILE="docker-compose.${PLATFORM}.yml"
+
+echo "Starting Taiga.io using platform: $PLATFORM"
+exec docker compose -f "$COMPOSE_FILE" up -d "$@"
