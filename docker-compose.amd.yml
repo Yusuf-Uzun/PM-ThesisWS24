@@ -21,6 +21,14 @@ x-environment:
   ENABLE_TELEMETRY: "${ENABLE_TELEMETRY}"
   PUBLIC_REGISTER_ENABLED: "True"
 
+  # OpenID settings
+  ENABLE_OPENID: "True"
+  OPENID_USER_URL : "https://${OPENID_URL}/auth/realms/{realm}/protocol/openid-connect/userinfo"
+  OPENID_TOKEN_URL : "https://${OPENID_URL}/auth/realms/{realm}/protocol/openid-connect/token"
+  OPENID_CLIENT_ID : "${OPENID_CLIENT_ID}"
+  OPENID_CLIENT_SECRET : "${OPENID_CLIENT_SECRET}"
+  OPENID_SCOPE: "${OPENID_SCOPE}"
+
 x-volumes:
   &default-back-volumes
   - taiga-static-data:/taiga-back/static
@@ -46,7 +54,7 @@ services:
       - taiga
 
   taiga-back:
-    image: taigaio/taiga-back:latest
+    image: robrotheram/taiga-back-openid
     platform: linux/amd64
     environment: *default-back-environment
     volumes: *default-back-volumes
@@ -91,13 +99,17 @@ services:
       - taiga
 
   taiga-front:
-    image: taigaio/taiga-front:latest
+    image: robrotheram/taiga-front-openid
     platform: linux/amd64
     environment:
       TAIGA_URL: "${TAIGA_SCHEME}://${TAIGA_DOMAIN}"
+      ENABLE_OPENID: "true"
       TAIGA_WEBSOCKETS_URL: "${WEBSOCKETS_SCHEME}://${TAIGA_DOMAIN}"
       TAIGA_SUBPATH: "${SUBPATH}"
       PUBLIC_REGISTER_ENABLED: "true"
+      OPENID_URL : "https://${OPENID_URL}/auth/realms/{realm}/protocol/openid-connect/auth"
+      OPENID_CLIENT_ID : "${OPENID_CLIENT_ID}"
+      OPENID_NAME: "Single Sign-On"
     networks:
       - taiga
 
