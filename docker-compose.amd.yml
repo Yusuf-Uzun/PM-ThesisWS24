@@ -47,8 +47,8 @@ services:
     deploy:
       resources:
         limits:
-          cpus: "0.5"
-          memory: 256M
+          cpus: "0.2"
+          memory: 128M
 
   taiga-back:
     image: taigaio/taiga-back:latest
@@ -67,8 +67,8 @@ services:
     deploy:
       resources:
         limits:
-          cpus: "0.5"
-          memory: 256M
+          cpus: "0.3"
+          memory: 128M
 
   taiga-async:
     image: taigaio/taiga-back:latest
@@ -88,8 +88,8 @@ services:
     deploy:
       resources:
         limits:
-          cpus: "0.3"
-          memory: 128M
+          cpus: "0.2"
+          memory: 64M
 
   taiga-async-rabbitmq:
     image: rabbitmq:3.8-management-alpine
@@ -107,8 +107,8 @@ services:
     deploy:
       resources:
         limits:
-          cpus: "0.3"
-          memory: 128M
+          cpus: "0.2"
+          memory: 64M
 
   taiga-front:
     image: taigaio/taiga-front:latest
@@ -125,8 +125,8 @@ services:
     deploy:
       resources:
         limits:
-          cpus: "0.3"
-          memory: 128M
+          cpus: "0.2"
+          memory: 64M
 
   taiga-events:
     image: taigaio/taiga-events:latest
@@ -143,8 +143,8 @@ services:
     deploy:
       resources:
         limits:
-          cpus: "0.3"
-          memory: 128M
+          cpus: "0.2"
+          memory: 64M
 
   taiga-events-rabbitmq:
     image: rabbitmq:3.8-management-alpine
@@ -162,8 +162,8 @@ services:
     deploy:
       resources:
         limits:
-          cpus: "0.3"
-          memory: 128M
+          cpus: "0.2"
+          memory: 64M
 
   taiga-protected:
     image: taigaio/taiga-protected:latest
@@ -176,8 +176,8 @@ services:
     deploy:
       resources:
         limits:
-          cpus: "0.2"
-          memory: 64M
+          cpus: "0.1"
+          memory: 32M
 
   taiga-gateway:
     image: nginx:1.19-alpine
@@ -197,8 +197,8 @@ services:
     deploy:
       resources:
         limits:
-          cpus: "0.3"
-          memory: 64M
+          cpus: "0.1"
+          memory: 32M
 
 volumes:
   taiga-static-data:
