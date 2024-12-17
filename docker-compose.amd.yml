@@ -125,7 +125,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: "0.2"
+          cpus: "0.5"
           memory: 64M
 
   taiga-events:
@@ -143,7 +143,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: "0.2"
+          cpus: "0.5"
           memory: 64M
 
   taiga-events-rabbitmq:
@@ -162,7 +162,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: "0.2"
+          cpus: "0.5"
           memory: 64M
 
   taiga-protected:
@@ -176,7 +176,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: "0.1"
+          cpus: "0.3"
           memory: 32M
 
   taiga-gateway:
@@ -197,7 +197,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: "0.1"
+          cpus: "0.3"
           memory: 32M
 
 volumes:
