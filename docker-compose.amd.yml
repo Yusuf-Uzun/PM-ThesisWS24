@@ -47,7 +47,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: "0.2"
+          cpus: "0.5"
           memory: 128M
 
   taiga-back:
@@ -60,55 +60,55 @@ services:
     depends_on:
       taiga-db:
         condition: service_healthy
-      taiga-events-rabbitmq:
-        condition: service_started
-      taiga-async-rabbitmq:
-        condition: service_started
+      # taiga-events-rabbitmq:
+      #   condition: service_started
+      # taiga-async-rabbitmq:
+      #   condition: service_started
     deploy:
       resources:
         limits:
-          cpus: "0.3"
+          cpus: "0.5"
           memory: 128M
 
-  taiga-async:
-    image: taigaio/taiga-back:latest
-    platform: linux/amd64
-    entrypoint: ["/taiga-back/docker/async_entrypoint.sh"]
-    environment: *default-back-environment
-    volumes: *default-back-volumes
-    networks:
-      - taiga
-    depends_on:
-      taiga-db:
-        condition: service_healthy
-      taiga-events-rabbitmq:
-        condition: service_started
-      taiga-async-rabbitmq:
-        condition: service_started
-    deploy:
-      resources:
-        limits:
-          cpus: "0.2"
-          memory: 64M
+  # taiga-async:
+  #   image: taigaio/taiga-back:latest
+  #   platform: linux/amd64
+  #   entrypoint: ["/taiga-back/docker/async_entrypoint.sh"]
+  #   environment: *default-back-environment
+  #   volumes: *default-back-volumes
+  #   networks:
+  #     - taiga
+  #   depends_on:
+  #     taiga-db:
+  #       condition: service_healthy
+  #     taiga-events-rabbitmq:
+  #       condition: service_started
+  #     taiga-async-rabbitmq:
+  #       condition: service_started
+  #   deploy:
+  #     resources:
+  #       limits:
+  #         cpus: "0.2"
+  #         memory: 64M
 
-  taiga-async-rabbitmq:
-    image: rabbitmq:3.8-management-alpine
-    platform: linux/amd64
-    environment:
-      RABBITMQ_ERLANG_COOKIE: "${RABBITMQ_ERLANG_COOKIE}"
-      RABBITMQ_DEFAULT_USER: "${RABBITMQ_USER}"
-      RABBITMQ_DEFAULT_PASS: "${RABBITMQ_PASS}"
-      RABBITMQ_DEFAULT_VHOST: "${RABBITMQ_VHOST}"
-    hostname: "taiga-async-rabbitmq"
-    volumes:
-      - taiga-async-rabbitmq-data:/var/lib/rabbitmq
-    networks:
-      - taiga
-    deploy:
-      resources:
-        limits:
-          cpus: "0.2"
-          memory: 64M
+  # taiga-async-rabbitmq:
+  #   image: rabbitmq:3.8-management-alpine
+  #   platform: linux/amd64
+  #   environment:
+  #     RABBITMQ_ERLANG_COOKIE: "${RABBITMQ_ERLANG_COOKIE}"
+  #     RABBITMQ_DEFAULT_USER: "${RABBITMQ_USER}"
+  #     RABBITMQ_DEFAULT_PASS: "${RABBITMQ_PASS}"
+  #     RABBITMQ_DEFAULT_VHOST: "${RABBITMQ_VHOST}"
+  #   hostname: "taiga-async-rabbitmq"
+  #   volumes:
+  #     - taiga-async-rabbitmq-data:/var/lib/rabbitmq
+  #   networks:
+  #     - taiga
+  #   deploy:
+  #     resources:
+  #       limits:
+  #         cpus: "0.2"
+  #         memory: 64M
 
   taiga-front:
     image: taigaio/taiga-front:latest
@@ -126,7 +126,7 @@ services:
       resources:
         limits:
           cpus: "0.5"
-          memory: 64M
+          memory: 128M
 
   taiga-events:
     image: taigaio/taiga-events:latest
@@ -137,47 +137,47 @@ services:
       TAIGA_SECRET_KEY: "${SECRET_KEY}"
     networks:
       - taiga
-    depends_on:
-      taiga-events-rabbitmq:
-        condition: service_started
+    # depends_on:
+    #   taiga-events-rabbitmq:
+    #     condition: service_started
     deploy:
       resources:
         limits:
           cpus: "0.5"
-          memory: 64M
+          memory: 128M
 
-  taiga-events-rabbitmq:
-    image: rabbitmq:3.8-management-alpine
-    platform: linux/amd64
-    environment:
-      RABBITMQ_ERLANG_COOKIE: "${RABBITMQ_ERLANG_COOKIE}"
-      RABBITMQ_DEFAULT_USER: "${RABBITMQ_USER}"
-      RABBITMQ_DEFAULT_PASS: "${RABBITMQ_PASS}"
-      RABBITMQ_DEFAULT_VHOST: "${RABBITMQ_VHOST}"
-    hostname: "taiga-events-rabbitmq"
-    volumes:
-      - taiga-events-rabbitmq-data:/var/lib/rabbitmq
-    networks:
-      - taiga
-    deploy:
-      resources:
-        limits:
-          cpus: "0.5"
-          memory: 64M
+  # taiga-events-rabbitmq:
+  #   image: rabbitmq:3.8-management-alpine
+  #   platform: linux/amd64
+  #   environment:
+  #     RABBITMQ_ERLANG_COOKIE: "${RABBITMQ_ERLANG_COOKIE}"
+  #     RABBITMQ_DEFAULT_USER: "${RABBITMQ_USER}"
+  #     RABBITMQ_DEFAULT_PASS: "${RABBITMQ_PASS}"
+  #     RABBITMQ_DEFAULT_VHOST: "${RABBITMQ_VHOST}"
+  #   hostname: "taiga-events-rabbitmq"
+  #   volumes:
+  #     - taiga-events-rabbitmq-data:/var/lib/rabbitmq
+  #   networks:
+  #     - taiga
+  #   deploy:
+  #     resources:
+  #       limits:
+  #         cpus: "0.5"
+  #         memory: 64M
 
-  taiga-protected:
-    image: taigaio/taiga-protected:latest
-    platform: linux/amd64
-    environment:
-      MAX_AGE: "${ATTACHMENTS_MAX_AGE}"
-      SECRET_KEY: "${SECRET_KEY}"
-    networks:
-      - taiga
-    deploy:
-      resources:
-        limits:
-          cpus: "0.3"
-          memory: 32M
+  # taiga-protected:
+  #   image: taigaio/taiga-protected:latest
+  #   platform: linux/amd64
+  #   environment:
+  #     MAX_AGE: "${ATTACHMENTS_MAX_AGE}"
+  #     SECRET_KEY: "${SECRET_KEY}"
+  #   networks:
+  #     - taiga
+  #   deploy:
+  #     resources:
+  #       limits:
+  #         cpus: "0.3"
+  #         memory: 32M
 
   taiga-gateway:
     image: nginx:1.19-alpine
@@ -197,15 +197,15 @@ services:
     deploy:
       resources:
         limits:
-          cpus: "0.3"
-          memory: 32M
+          cpus: "0.5"
+          memory: 128M
 
 volumes:
   taiga-static-data:
   taiga-media-data:
   taiga-db-data:
-  taiga-async-rabbitmq-data:
-  taiga-events-rabbitmq-data:
+  # taiga-async-rabbitmq-data:
+  # taiga-events-rabbitmq-data:
 
 networks:
   taiga:
