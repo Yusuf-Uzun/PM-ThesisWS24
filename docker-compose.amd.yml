@@ -88,8 +88,8 @@ services:
     deploy:
       resources:
         limits:
-          cpus: "0.3"
-          memory: 128M
+          cpus: "0.5"
+          memory: 512M
 
   taiga-async-rabbitmq:
     image: rabbitmq:4.0.4-management-alpine
@@ -107,8 +107,8 @@ services:
     deploy:
       resources:
         limits:
-          cpus: "0.3"
-          memory: 128M
+          cpus: "0.5"
+          memory: 512M
 
   taiga-front:
     image: taigaio/taiga-front:latest
