@@ -21,9 +21,9 @@ x-environment:
   ENABLE_TELEMETRY: "${ENABLE_TELEMETRY}"
   PUBLIC_REGISTER_ENABLED: "True"
   ENABLE_JIRA_IMPORTER: "True"
-  JIRA_IMPORTER_CONSUMER_KEY: "consumer-key-from-jira"
-  JIRA_IMPORTER_CERT: "cert-from-jira"
-  JIRA_IMPORTER_PUB_CERT: "pub-cert-from-jira"
+  JIRA_IMPORTER_CONSUMER_KEY: "{CONSUMER_KEY}"
+  JIRA_IMPORTER_CERT: "{JIRA_CERT}"
+  JIRA_IMPORTER_PUB_CERT: "{JIRA_PUB_CERT}"
 
 x-volumes:
   &default-back-volumes
