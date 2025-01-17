@@ -20,6 +20,10 @@ x-environment:
   RABBITMQ_PASS: "${RABBITMQ_PASS}"
   ENABLE_TELEMETRY: "${ENABLE_TELEMETRY}"
   PUBLIC_REGISTER_ENABLED: "True"
+  ENABLE_JIRA_IMPORTER: "True"
+  JIRA_IMPORTER_CONSUMER_KEY: "consumer-key-from-jira"
+  JIRA_IMPORTER_CERT: "cert-from-jira"
+  JIRA_IMPORTER_PUB_CERT: "pub-cert-from-jira"
 
 x-volumes:
   &default-back-volumes
