@@ -114,6 +114,9 @@ services:
       OPENID_URL : "http://${OPENID_URL}/realms/master/protocol/openid-connect/auth"
       OPENID_CLIENT_ID : "${OPENID_CLIENT_ID}"
       OPENID_NAME: "Single Sign-On 1"
+      OPENID_SCOPE: "openid email"
+      OPENID_FILTER_FIELD: "groups"
+      OPENID_FILTER: "taiga_users,taiga_admins"
     networks:
       - taiga
 
