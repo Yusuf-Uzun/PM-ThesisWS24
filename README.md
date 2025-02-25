@@ -67,4 +67,10 @@ If you need to create an admin account (superuser) for the application, use the 
 ./create-superuser.sh --platform <amd|arm>
 ```
 
+
+---
+
+### Configuring Taiga for new servers
+Change the branch to bwcloud and look at the difference.
+
 ---
